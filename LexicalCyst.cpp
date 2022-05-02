@@ -6,7 +6,19 @@
 #include<string>
 using namespace std;
 
-string arr[] = { "void", "using", "namespace", "int", "include", "iostream", "std", "main", "cin", "cout", "return", "float", "double", "string" };
+string arr[] = { "alignas", "alignof", "and", "and_eq", "asm", "auto",
+                     "bitand", "bitor", "bool", "break", "case", "catch", "char",
+                     "char16_t", "char32_t", "class", "compl", "const", "constexpr",
+                     "const_cast", "continue", "decltype", "default", "delete",
+                     "do", "double", "dynamic_cast", "else", "enum", "explicit",
+                     "export", "extern", "false", "float", "for", "friend", "goto",
+                     "if", "inline", "int", "long", "mutable", "namespace", "new",
+                     "noexcept", "not", "not_eq", "nullptr", "operator", "or",
+                     "or_eq", "private", "protected", "public", "register", "reinterpret_cast",
+                     "return", "short", "signed", "sizeof", "static", "static_assert", "static_cast",
+                     "struct", "switch", "templeate", "this", "thread_local", "throw", "true",
+                     "try", "typedef", "typeid", "typename", "union", "unsigned", "using",
+                     "virtual", "void", "volatile", "wchar_t", "while", "xor", "xor_eq"};
 
 bool isKeyword (string a)
 {
@@ -36,7 +48,9 @@ int main ()
 		if (code[i] != ' ') {
 			s += code[i];
 		}else {
-			if (s == "+" || s == "-" || s == "*" || s == "/" || s == "^" || s == "&&" || s == "||" || s == "=" || s == "==" || s == "&" || s == "|" || s == "%" || s == "++" || s == "--" || s == "+=" || s == "-=" || s == "/=" || s == "*=" || s == "%=") 
+			if (s == "+" || s == "-" || s == "*" || s == "/" || s == "^" || s == "&&" || s == "||" || s == "=" 
+			|| s == "==" || s == "&" || s == "|" || s == "%" || s == "++" || s == "--" || s == "+=" || s == "-=" 
+			|| s == "/=" || s == "*=" || s == "%=") 
 			{
 				cout << s <<" is an operator"<<endl;
 				s = "";
@@ -45,7 +59,8 @@ int main ()
 					cout << s <<" is a keyword"<<endl;
 					s = "";	
 			}
-			else if (s == "(" || s == "{" || s == "[" || s == ")" || s == "}" || s == "]" || s == "<" || s == ">" || s == "()" || s == ";" || s == "<<" || s == ">>" || s == "," || s == "#") {
+			else if (s == "(" || s == "{" || s == "[" || s == ")" || s == "}" || s == "]" || s == "<" || s == ">" 
+			|| s == "()" || s == ";" || s == "<<" || s == ">>" || s == "," || s == "#") {
 				cout << s <<" is a symbol"<<endl;
 				s = "";
 			}
@@ -69,13 +84,27 @@ int main ()
 					if ((s[j]>=0 && s[j]<=9)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
 			        {
 			           symbol = "";
-			        }else if(symbol == "(" || symbol == "{" || symbol == "[" || symbol == ")" || symbol == "}" || symbol == "]" || symbol == "<" || symbol == ">" || symbol == "()" || symbol == ";" || symbol == "<<" || symbol == ">>" || symbol == "," || symbol == "#"){
+			        }else if(symbol == "(" || symbol == "{" || symbol == "[" || symbol == ")" || symbol == "}" || symbol == "]" 
+					|| symbol == "<" || symbol == ">" || symbol == "()" || symbol == ";" || symbol == "<<" || symbol == ">>" 
+					|| symbol == "," || symbol == "#"){
 						if(character != symbol){
 							character[character.length()-1] = 0; character.erase(character.end()-1);
 							cout << character <<" is an identifier"<<endl;
 							character = "";
 						}
 						cout << symbol <<" is a symbol"<<endl;
+						character = "";
+						symbol= "";
+					}else if(symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/" || symbol == "^" || symbol == "&&" 
+					|| symbol == "||" || symbol == "=" || symbol == "==" || symbol == "&" || symbol == "|" || symbol == "%" 
+					|| symbol == "++" || symbol == "--" || symbol == "+=" || symbol == "-=" || symbol == "/=" || symbol == "*=" 
+					|| symbol == "%="){
+						if(character != symbol){
+							character[character.length()-1] = 0; character.erase(character.end()-1);
+							cout << character <<" is an identifier"<<endl;
+							character = "";
+						}
+						cout << symbol <<" is a operator"<<endl;
 						character = "";
 						symbol= "";
 					}else{
