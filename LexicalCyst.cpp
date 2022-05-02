@@ -76,15 +76,25 @@ int main ()
 						cout << s <<" is a constant"<<endl;
 						s = "";
 					}		
-			}
-			else {
+			}else {
 				for (int j = 0; j < s.size(); j++) {
+					if (isKeyword (character)) {	
+						cout << character <<" is a keyword"<<endl;
+						character = "";	
+						character += s[j];
+						continue;
+					}
 					character += s[j];
 					symbol += s[j];
 					if ((s[j]>=0 && s[j]<=9)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
 			        {
 			           symbol = "";
-			        }else if(symbol == "(" || symbol == "{" || symbol == "[" || symbol == ")" || symbol == "}" || symbol == "]" 
+			        }
+					else if (s == "\n" || s == "" || s == " ") 
+					{
+						s = "";
+					}
+					else if(symbol == "(" || symbol == "{" || symbol == "[" || symbol == ")" || symbol == "}" || symbol == "]" 
 					|| symbol == "<" || symbol == ">" || symbol == "()" || symbol == ";" || symbol == "<<" || symbol == ">>" 
 					|| symbol == "," || symbol == "#"){
 						if(character != symbol){
@@ -95,11 +105,14 @@ int main ()
 						cout << symbol <<" is a symbol"<<endl;
 						character = "";
 						symbol= "";
-					}else if(symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/" || symbol == "^" || symbol == "&&" 
+					}
+					else if(symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/" || symbol == "^" || symbol == "&&" 
 					|| symbol == "||" || symbol == "=" || symbol == "==" || symbol == "&" || symbol == "|" || symbol == "%" 
 					|| symbol == "++" || symbol == "--" || symbol == "+=" || symbol == "-=" || symbol == "/=" || symbol == "*=" 
-					|| symbol == "%="){
-						if(character != symbol){
+					|| symbol == "%=")
+					{
+						if(character != symbol)
+						{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
 							cout << character <<" is an identifier"<<endl;
 							character = "";
@@ -107,7 +120,9 @@ int main ()
 						cout << symbol <<" is a operator"<<endl;
 						character = "";
 						symbol= "";
-					}else{
+					}
+					else
+					{
 						cout << character <<" is an identifier"<<endl;
 						character = "";
 						symbol= "";
