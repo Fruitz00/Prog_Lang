@@ -43,9 +43,11 @@ int main ()
 	string s="";
 	string character="";
 	string symbol="";	
-	for (int i = 0; i < code.size(); i++) {
+	for (int i = 0; i < code.size(); i++) 
+	{
 		
-		if (code[i] != ' ') {
+		if (code[i] != ' ') 
+		{
 			s += code[i];
 		}else {
 			if (s == "+" || s == "-" || s == "*" || s == "/" || s == "^" || s == "&&" || s == "||" || s == "=" 
@@ -55,7 +57,8 @@ int main ()
 				cout << s <<" is an operator"<<endl;
 				s = "";
 			}
-			else if (isKeyword (s)) {	
+			else if (isKeyword (s)) 
+			{	
 					cout << s <<" is a keyword"<<endl;
 					s = "";	
 			}
@@ -67,37 +70,69 @@ int main ()
 			else if (s == "\n" || s == "" || s == " ") {
 				s = "";
 			}
-			else if (isdigit (s[0])) {
+			else if (isdigit (s[0])) 
+			{
 				int x = 0;
-					if (!isdigit (s[x++])) {
+					if (!isdigit (s[x++])) 
+					{
 						continue;
 					}
-					else {
+					else 
+					{
 						cout << s <<" is a constant"<<endl;
 						s = "";
 					}		
-			}else {
+			}
+			else 
+			{
 				for (int j = 0; j < s.size(); j++) {
 					if (isKeyword (character)) {	
 						cout << character <<" is a keyword"<<endl;
+						symbol = "";
 						character = "";	
 						character += s[j];
 						continue;
 					}
 					character += s[j];
 					symbol += s[j];
-					if ((s[j]>=0 && s[j]<=9)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
+					//cout << " [ " << character << " ] " << endl;
+					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
 			        {
 			           symbol = "";
+			           continue;
 			        }
-					else if (s == "\n" || s == "" || s == " ") 
+					else if (character == "\n" || character == "" || character == " ") 
 					{
-						s = "";
+						character = "";
+					}
+					else if (isdigit (character[0])) 
+					{
+						int x = 0;
+							if (!isdigit (character[x++])) 
+							{
+								continue;
+							}
+							else 
+							{
+								if(character != symbol)
+								{
+									character[character.length()-1] = 0; character.erase(character.end()-1);
+									cout << character <<" is a constant"<<endl;
+									cout << symbol <<" is a symbol"<<endl;
+									character = "";
+								}
+								else
+								{
+								character = "";
+								symbol = "";
+								}
+							}		
 					}
 					else if(symbol == "(" || symbol == "{" || symbol == "[" || symbol == ")" || symbol == "}" || symbol == "]" 
 					|| symbol == "<" || symbol == ">" || symbol == "()" || symbol == ";" || symbol == "<<" || symbol == ">>" 
 					|| symbol == "," || symbol == "#"){
-						if(character != symbol){
+						if(character != symbol)
+						{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
 							cout << character <<" is an identifier"<<endl;
 							character = "";
@@ -128,8 +163,10 @@ int main ()
 						symbol= "";
 					}
 				}
+				if(character != ""){
 				cout << character <<" is an identifier"<<endl;
 				character = "";
+				}
 				s = "";
 			}		
 		}	

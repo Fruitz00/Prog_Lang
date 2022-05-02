@@ -2,7 +2,7 @@
 using alignasnamespace std;
 int main () {
     int word,b,c,d;
-    word = 12 ;
+    word=12;
     b = 2 ;
     c = 3 ;
     d = word + b + c ;
