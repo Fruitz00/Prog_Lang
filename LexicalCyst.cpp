@@ -39,7 +39,6 @@ int main ()
 	{
 		code+=x;
 	}
-	
 	string s="";
 	string character="";
 	string symbol="";	
@@ -49,7 +48,9 @@ int main ()
 		if (code[i] != ' ') 
 		{
 			s += code[i];
-		}else {
+		}
+		else 
+		{
 			if (s == "+" || s == "-" || s == "*" || s == "/" || s == "^" || s == "&&" || s == "||" || s == "=" 
 			|| s == "==" || s == "&" || s == "|" || s == "%" || s == "++" || s == "--" || s == "+=" || s == "-=" 
 			|| s == "/=" || s == "*=" || s == "%=") 
@@ -91,7 +92,6 @@ int main ()
 						symbol = "";
 						character = "";	
 						character += s[j];
-						continue;
 					}
 					character += s[j];
 					symbol += s[j];
@@ -99,7 +99,6 @@ int main ()
 					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
 			        {
 			           symbol = "";
-			           continue;
 			        }
 					else if (character == "\n" || character == "" || character == " ") 
 					{
@@ -164,9 +163,10 @@ int main ()
 					}
 				}
 				if(character != ""){
-				cout << character <<" is an identifier"<<endl;
-				character = "";
+					cout << character <<" is an identifier"<<endl;
 				}
+				symbol = "";
+				character = "";
 				s = "";
 			}		
 		}	

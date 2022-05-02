@@ -1,11 +1,11 @@
 #include <iostream>
-using alignasnamespace std;
+using namespace std;
 int main () {
-    int word,b,c,d;
-    word=12;
-    b = 2 ;
-    c = 3 ;
-    d = word + b + c ;
-    cout << d ;
-    return 0 ;
+    int a , b , c , d;
+    a = 1;
+    b = 2;
+    c = 3;
+    d = a + b + c;
+    cout << d;
+    return 0;
 }
