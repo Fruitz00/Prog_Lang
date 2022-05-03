@@ -75,7 +75,7 @@ bool isCondition(string a){
 int main (){
 	
 	ifstream file("prog.txt");
-	string x, code="", s="", character="", symbol="", temp="";	
+	string x, code="", s="", character="", symbol="", temp="", next="";	
 	
 	while (getline(file, x)) 
 		code+=x;
@@ -98,8 +98,6 @@ int main (){
 				s = "";
 			}else if (isdigit (s[0])) {
 					int x = 0;
-					string symbol = "";
-					string temp = "";
 					if (!isdigit (s[x++])) {
 						continue;
 					}else {
@@ -112,9 +110,10 @@ int main (){
 				s = "";
 			}else {
 				for (int j = 0; j < s.size(); j++) {
+					temp += symbol; 
 					character += s[j];
 					symbol += s[j];
-					temp += s[j+1]; 
+					next += s[j+1];
 					
 					if (isKeyword(character)) {	
 						cout << character <<" is a keyword 2"<<endl;
@@ -125,7 +124,8 @@ int main (){
 					//cout << " [ " << character << " ] " << endl;
 					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122) || s[j] == 137 || s[j] == 46){			
 						symbol = "";
-						temp = "";		
+						temp = "";
+						next = "";		
 			        }else if (isIgnore(character)) {
 						character = "";
 					}else if (isdigit (character[0])) {
@@ -145,37 +145,38 @@ int main (){
 							}	
 						}				
 					}else if(isSymbol(symbol)){
-						if(character != symbol)	{
+						if(character != symbol && !isSymbol(character))	{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
-							if (isIgnore(character))
-								cout << character <<" is an identifier 1"<<endl;
+							cout << character <<" is an identifier 1"<<endl;
 							character = "";
 						}
-						if(isSymbol(temp)){
+						if(isSymbol(symbol) && isSymbol(next) && !isSymbol(temp)){
+							character = "";
 				   			continue;	
 						}
 						cout << symbol <<" is a symbol 2"<<endl;
 						character = "";
 						symbol= "";
 						temp = "";
+						next = "";
 					}else if(isOperator(symbol)){
-						if(character != symbol){
+						if(character != symbol  && !isOperator(character)){
 							character[character.length()-1] = 0; character.erase(character.end()-1);
-							if (isIgnore(character))
-								cout << character <<" is an identifier 2"<<endl;
+							cout << character <<" is an identifier 2"<<endl;
 							character = "";
 						}
-						if(isOperator(temp)){
+						if(isOperator(symbol) && isOperator(next) && !isOperator(temp)){
+							character = "";
 							continue;
 						}
 						cout << symbol <<" is a operator 2"<<endl;
 						character = "";
-						symbol= "";
-						temp = "";
 					}else{
 						cout << character <<" is an identifier 3"<<endl;
 						character = "";
 						symbol= "";
+						temp = "";
+						next = "";
 					}
 				}
 				
