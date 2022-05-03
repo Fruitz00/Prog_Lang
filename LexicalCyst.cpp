@@ -6,7 +6,7 @@
 #include<string>
 using namespace std;
 
-string arr[] = { "alignas", "alignof", "and", "and_eq", "asm", "auto",
+string keywords[] = { "alignas", "alignof", "and", "and_eq", "asm", "auto",
                      "bitand", "bitor", "bool", "break", "case", "catch", "char",
                      "char16_t", "char32_t", "class", "compl", "const", "constexpr",
                      "const_cast", "continue", "decltype", "default", "delete",
@@ -19,11 +19,64 @@ string arr[] = { "alignas", "alignof", "and", "and_eq", "asm", "auto",
                      "struct", "switch", "templeate", "this", "thread_local", "throw", "true",
                      "try", "typedef", "typeid", "typename", "union", "unsigned", "using",
                      "virtual", "void", "volatile", "wchar_t", "while", "xor", "xor_eq"};
+                    
+string operators[] = {"+", "-", "*", "/", "^", "&&", "||", "=" , 
+					"==", "&", "|", "%", "++", "--", "+=", "-=", 
+					"/=", "*=", "%="};
+					
+string symbols[] = {"(", "{", "[", ")", "}", "]", "<", ">", 
+					"()", ";", "<<", ">>", ",", "#"};
+					
+string ignore[] = {"\n", "", " "};
 
-bool isKeyword (string a)
+string conditions[] = {"if", "else", "else if", "switch"};
+					
+
+
+bool isKeyword(string a)
+{
+	for (int i = 0; i < 84; i++) {
+		if (keywords[i] == a) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool isOperator(string a)
+{
+	for (int i = 0; i < 19; i++) {
+		if (operators[i] == a) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool isSymbol(string a)
 {
 	for (int i = 0; i < 14; i++) {
-		if (arr[i] == a) {
+		if (symbols[i] == a) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool isIgnore(string a)
+{
+	for (int i = 0; i < 3; i++) {
+		if (ignore[i] == a) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool isCondition(string a)
+{
+	for (int i = 0; i < 4; i++) {
+		if (conditions[i] == a) {
 			return true;
 		}
 	}
@@ -41,7 +94,8 @@ int main ()
 	}
 	string s="";
 	string character="";
-	string symbol="";	
+	string symbol="";
+	string temp="";	
 	for (int i = 0; i < code.size(); i++) 
 	{
 		
@@ -51,24 +105,21 @@ int main ()
 		}
 		else 
 		{
-			if (s == "+" || s == "-" || s == "*" || s == "/" || s == "^" || s == "&&" || s == "||" || s == "=" 
-			|| s == "==" || s == "&" || s == "|" || s == "%" || s == "++" || s == "--" || s == "+=" || s == "-=" 
-			|| s == "/=" || s == "*=" || s == "%=") 
+			if (isOperator(s)) 
 			{
-				cout << s <<" is an operator"<<endl;
+				cout << s <<" is an operator 1"<<endl;
 				s = "";
 			}
-			else if (isKeyword (s)) 
+			else if (isKeyword(s)) 
 			{	
 					cout << s <<" is a keyword"<<endl;
 					s = "";	
 			}
-			else if (s == "(" || s == "{" || s == "[" || s == ")" || s == "}" || s == "]" || s == "<" || s == ">" 
-			|| s == "()" || s == ";" || s == "<<" || s == ">>" || s == "," || s == "#") {
+			else if (isSymbol(s)) {
 				cout << s <<" is a symbol"<<endl;
 				s = "";
 			}
-			else if (s == "\n" || s == "" || s == " ") {
+			else if (isIgnore(s)) {
 				s = "";
 			}
 			else if (isdigit (s[0])) 
@@ -84,7 +135,7 @@ int main ()
 						s = "";
 					}		
 			}
-			else if (s == "if" || s == "else"|| s == "else if" || s == "switch"  ){
+			else if (isCondition(s)){
 				cout << s << "is a conditional statement" << endl;
 				s = "";
 			}
@@ -99,12 +150,22 @@ int main ()
 					}
 					character += s[j];
 					symbol += s[j];
+					temp += s[j+1]; 
 					//cout << " [ " << character << " ] " << endl;
 					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
 			        {
-			           symbol = "";
+					   		if(isSymbol(symbol) && isSymbol(temp)){
+					   			cout << "TESTTTTT1";
+								continue;
+							}
+							if(isOperator(symbol) && isOperator(temp)){
+								cout << "TESTTTTT2";
+								continue;
+							}
+							symbol = "";
+							temp = "";		
 			        }
-					else if (character == "\n" || character == "" || character == " ") 
+					else if (isIgnore(symbol)) 
 					{
 						character = "";
 					}
@@ -131,9 +192,7 @@ int main ()
 								}
 							}		
 					}
-					else if(symbol == "(" || symbol == "{" || symbol == "[" || symbol == ")" || symbol == "}" || symbol == "]" 
-					|| symbol == "<" || symbol == ">" || symbol == "()" || symbol == ";" || symbol == "<<" || symbol == ">>" 
-					|| symbol == "," || symbol == "#"){
+					else if(isSymbol(symbol)){
 						if(character != symbol)
 						{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
@@ -144,10 +203,7 @@ int main ()
 						character = "";
 						symbol= "";
 					}
-					else if(symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/" || symbol == "^" || symbol == "&&" 
-					|| symbol == "||" || symbol == "=" || symbol == "==" || symbol == "&" || symbol == "|" || symbol == "%" 
-					|| symbol == "++" || symbol == "--" || symbol == "+=" || symbol == "-=" || symbol == "/=" || symbol == "*=" 
-					|| symbol == "%=")
+					else if(isOperator(symbol))
 					{
 						if(character != symbol)
 						{
@@ -155,7 +211,7 @@ int main ()
 							cout << character <<" is an identifier"<<endl;
 							character = "";
 						}
-						cout << symbol <<" is a operator"<<endl;
+						cout << symbol <<" is a operator 2"<<endl;
 						character = "";
 						symbol= "";
 					}

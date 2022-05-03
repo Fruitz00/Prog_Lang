@@ -27,7 +27,7 @@ int main () {
     switch (choice)
     {
     case 1:
-        cout << "the sum of a + b + c is : " << add(a,b,c,d);
+        cout << "the sum of a+b+c is : " << add(a,b,c,d);
         break;
     case 2:
         cout << "the difference of a - b - c is : " << sub(a,b,c,d);
@@ -57,7 +57,7 @@ int main () {
     cout << "\n\n\nDo you want to try again? [y/n]: ";
     cin >> choice2;
 
-    if(choice2 == 'y' || choice2 == 'Y'){
+    if(choice2 == 'y'||choice2 == 'Y'){
         goto start;
     }
     else if (choice2 == 'n' || choice2 == 'N'){
