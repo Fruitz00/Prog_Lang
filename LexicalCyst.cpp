@@ -30,7 +30,7 @@ string operators[] = {"+", "-", "*", "/", "^", "&&", "||", "=" ,
 string symbols[] = {"(", "{", "[", ")", "}", "]", "<", ">", 
 					"()", ";", "<<", ">>", ",", "#", ":"};
 					
-string ignore[] = {"\n", "", " "};
+string ignored[] = {"\n", "", " "};
 
 string conditions[] = {"if", "else", "else if", "switch"};
 
@@ -72,7 +72,7 @@ bool isSymbol(string a){
 
 bool isIgnore(string a){
 	for (int i = 0; i < 3; i++) {
-		if (ignore[i] == a) 
+		if (ignored[i] == a) 
 			return true;
 	}
 	return false;
