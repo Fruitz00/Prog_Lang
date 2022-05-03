@@ -4,6 +4,7 @@
 #include<ctype.h>
 #include<fstream>
 #include<string>
+
 using namespace std;
 
 string keywords[] = { "alignas", "alignof", "and", "and_eq", "asm", "auto",
@@ -33,45 +34,40 @@ string conditions[] = {"if", "else", "else if", "switch"};
 
 bool isKeyword(string a){
 	for (int i = 0; i < 84; i++) {
-		if (keywords[i] == a) {
+		if (keywords[i] == a) 
 			return true;
-		}
 	}
 	return false;
 }
 
 bool isOperator(string a){
 	for (int i = 0; i < 19; i++) {
-		if (operators[i] == a) {
+		if (operators[i] == a) 
 			return true;
-		}
 	}
 	return false;
 }
 
 bool isSymbol(string a){
 	for (int i = 0; i < 14; i++) {
-		if (symbols[i] == a) {
+		if (symbols[i] == a) 
 			return true;
-		}
 	}
 	return false;
 }
 
 bool isIgnore(string a){
 	for (int i = 0; i < 3; i++) {
-		if (ignore[i] == a) {
+		if (ignore[i] == a) 
 			return true;
-		}
 	}
 	return false;
 }
 
 bool isCondition(string a){
 	for (int i = 0; i < 4; i++) {
-		if (conditions[i] == a) {
+		if (conditions[i] == a)
 			return true;
-		}
 	}
 	return false;
 }
@@ -101,21 +97,21 @@ int main (){
 			}else if (isIgnore(s)) {
 				s = "";
 			}else if (isdigit (s[0])) {
-				int x = 0;
-				
-				if (!isdigit (s[x++])) {
-					continue;
-				}else {
-					cout << s <<" is a constant 1"<<endl;
-					s = "";
-				}		
+					int x = 0;
+					string symbol = "";
+					string temp = "";
+					if (!isdigit (s[x++])) {
+						continue;
+					}else {
+						cout << s <<" is a constant 1"<<endl;
+						s = "";
+					}	
 			}
 			else if (isCondition(s)){
 				cout << s << "is a conditional statement 1" << endl;
 				s = "";
 			}else {
 				for (int j = 0; j < s.size(); j++) {
-					
 					if (isKeyword (character)) {	
 						cout << character <<" is a keyword 2"<<endl;
 						symbol = "";
@@ -128,8 +124,7 @@ int main (){
 					temp += s[j+1]; 
 					
 					//cout << " [ " << character << " ] " << endl;
-					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137)){
-						
+					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122) || s[j] == 137 || s[j] == 46){
 				   		if(isSymbol(symbol) && isSymbol(temp)){
 				   			cout << "TESTTTTT1";
 							continue;
@@ -143,36 +138,26 @@ int main (){
 						symbol = "";
 						temp = "";		
 			        }
-					else if (isIgnore(symbol)) 
-					{
+					else if (isIgnore(symbol)) {
 						character = "";
 					}
-					else if (isdigit (character[0])) 
-					{
-						int x = 0;
-							if (!isdigit (character[x++])) 
-							{
-								continue;
-							}
-							else 
-							{
-								if(character != symbol)
-								{
-									character[character.length()-1] = 0; character.erase(character.end()-1);
-									cout << character <<" is a constant 2"<<endl;
-									cout << symbol <<" is a symbol 2"<<endl;
-									character = "";
-								}
-								else
-								{
+				else if (isdigit (character[0])) {
+					int x = 0;
+						if (!isdigit (character[x++])) {
+							continue;
+						}else {
+							if(character != symbol){
+								character[character.length()-1] = 0; character.erase(character.end()-1);
+								cout << character <<" is a constant 2"<<endl;
+								cout << symbol <<" is a symbol 2"<<endl;
+								character = "";
+							}else{
 								character = "";
 								symbol = "";
-								}
-							}		
-					}
-					else if(isSymbol(symbol)){
-						if(character != symbol)
-						{
+							}	
+						}				
+					}else if(isSymbol(symbol)){
+						if(character != symbol)	{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
 							cout << character <<" is an identifier 1"<<endl;
 							character = "";
@@ -180,11 +165,8 @@ int main (){
 						cout << symbol <<" is a symbol 2"<<endl;
 						character = "";
 						symbol= "";
-					}
-					else if(isOperator(symbol))
-					{
-						if(character != symbol)
-						{
+					}else if(isOperator(symbol)){
+						if(character != symbol){
 							character[character.length()-1] = 0; character.erase(character.end()-1);
 							cout << character <<" is an identifier 2"<<endl;
 							character = "";
@@ -192,17 +174,17 @@ int main (){
 						cout << symbol <<" is a operator 2"<<endl;
 						character = "";
 						symbol= "";
-					}
-					else
-					{
+					}else{
 						cout << character <<" is an identifier 3"<<endl;
 						character = "";
 						symbol= "";
 					}
 				}
+				
 				if(character != ""){
 					cout << character <<" is an identifier 4"<<endl;
 				}
+				
 				symbol = "";
 				character = "";
 				s = "";
