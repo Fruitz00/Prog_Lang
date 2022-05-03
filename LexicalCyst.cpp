@@ -72,6 +72,14 @@ bool isCondition(string a){
 	return false;
 }
 
+bool isConstant(string a){
+    for (int i = 0; i < a.length(); i++){
+        if (isdigit(a[i]) == false)
+            return false;
+    }
+    return true;
+}
+
 int main (){
 	
 	ifstream file("prog.txt");
@@ -80,7 +88,7 @@ int main (){
 	while (getline(file, x)) 
 		code+=x;
 
-	for (int i = 0; i < code.size(); i++) {
+	for (int i = 0; i < code.length(); i++) {
 		
 		if (code[i] != ' ') {
 			s += code[i];
@@ -96,20 +104,14 @@ int main (){
 				s = "";	
 			}else if (isIgnore(s)) {
 				s = "";
-			}else if (isdigit (s[0])) {
-					int x = 0;
-					if (!isdigit (s[x++])) {
-						continue;
-					}else {
-						cout << s <<" is a constant 1"<<endl;
-						s = "";
-					}	
-			}
-			else if (isCondition(s)){
+			}else if (isConstant(s)) {
+				cout << s <<" is a constant 1"<<endl;
+				s = "";	
+			}else if (isCondition(s)){
 				cout << s << "is a conditional statement 1" << endl;
 				s = "";
 			}else {
-				for (int j = 0; j < s.size(); j++) {
+				for (int j = 0; j < s.size(); j++){
 					temp += symbol; 
 					character += s[j];
 					symbol += s[j];
@@ -120,7 +122,6 @@ int main (){
 						symbol = "";
 						character = "";	
 					}
-					
 					//cout << " [ " << character << " ] " << endl;
 					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122) || s[j] == 137 || s[j] == 46){			
 						symbol = "";
@@ -129,10 +130,10 @@ int main (){
 			        }else if (isIgnore(character)) {
 						character = "";
 					}else if (isdigit (character[0])) {
-					int x = 0;
+						int x = 0;
 						if (!isdigit (character[x++])) {
 							continue;
-						}else {
+						}else { 
 							if(character != symbol){
 								character[character.length()-1] = 0; character.erase(character.end()-1);
 								cout << character <<" is a constant 2"<<endl;
