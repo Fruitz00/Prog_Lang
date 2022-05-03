@@ -122,11 +122,11 @@ int main (){
 						character = "";	
 					}
 					
-					cout << " [ " << character << " ] " << endl;
+					//cout << " [ " << character << " ] " << endl;
 					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122) || s[j] == 137 || s[j] == 46){			
 						symbol = "";
 						temp = "";		
-			        }else if (isIgnore(symbol)) {
+			        }else if (isIgnore(character)) {
 						character = "";
 					}else if (isdigit (character[0])) {
 					int x = 0;
@@ -147,7 +147,8 @@ int main (){
 					}else if(isSymbol(symbol)){
 						if(character != symbol)	{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
-							cout << character <<" is an identifier 1"<<endl;
+							if (isIgnore(character))
+								cout << character <<" is an identifier 1"<<endl;
 							character = "";
 						}
 						if(isSymbol(temp)){
@@ -160,7 +161,8 @@ int main (){
 					}else if(isOperator(symbol)){
 						if(character != symbol){
 							character[character.length()-1] = 0; character.erase(character.end()-1);
-							cout << character <<" is an identifier 2"<<endl;
+							if (isIgnore(character))
+								cout << character <<" is an identifier 2"<<endl;
 							character = "";
 						}
 						if(isOperator(temp)){
