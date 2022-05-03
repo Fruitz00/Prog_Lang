@@ -85,7 +85,7 @@ int main ()
 					}		
 			}
 			else if (s == "if" || s == "else"|| s == "else if" || s == "switch"  ){
-				cout << s << "is a conditional statement";
+				cout << s << "is a conditional statement" << endl;
 				s = "";
 			}
 			else 
