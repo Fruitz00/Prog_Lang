@@ -85,10 +85,12 @@ int main (){
 	ifstream file("prog.txt");
 	string x, code="", s="", character="", symbol="", temp="", next="";	
 	
-	while (getline(file, x)) 
-		code+=x;
+	while (getline(file, x)) {
+		code += " ";
+		code += x;
+	}
 
-	for (int i = 0; i < code.length(); i++) {
+	for (int i = 0; i < code.size(); i++) {
 		
 		if (code[i] != ' ') {
 			s += code[i];
