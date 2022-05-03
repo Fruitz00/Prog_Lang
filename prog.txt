@@ -1,11 +1,116 @@
 #include <iostream>
+#include <math.h>
+
 using namespace std;
+
+int a = 9, b = 5 , c = 6, d = 0;
+
+int add(int a, int b, int c, int d);
+int sub(int a, int b, int c, int d);
+int mul(int a, int b, int c, int d);
+float div(int a, int b, int c, int d);
+int raise(int a, int b, int d);
+int sqt(int a, int d);
+
 int main () {
-    int a , b , c , d;
-    a = 1;
-    b = 2;
-    c = 3;
+    
+    int choice;
+    char choice2;
+
+    start:
+
+    cout << "a = 9, b = 5 , c = 6 "<<endl<<endl;
+    cout << " [1] = addition \n [2] = subtract \n [3] = multiply \n [4] = division \n [5] = raise \n [6] = sqrt \n [7] = exit"<<endl <<endl;
+    cout << "Choose an operation: ";
+    cin >> choice;
+
+    switch (choice)
+    {
+    case 1:
+        cout << "the sum of a + b + c is : " << add(a,b,c,d);
+        break;
+    case 2:
+        cout << "the difference of a - b - c is : " << sub(a,b,c,d);
+        break;
+    case 3:
+        mul(a,b,c,d);
+        cout << "the product of a * b * c is : "<< mul(a,b,c,d);
+        break;
+    case 4:
+        div(a,b,c,d);
+        cout << "the quotient of a / b /c is : "<<div(a,b,c,d);
+        break;
+    case 5:
+        cout << "a raised to b is : " << raise(a,b,d);
+        break;
+    case 6:
+        cout << "the square root of a is: " << sqt(a,d);
+        break;
+    case 7:
+        return 0;
+        break;
+    default:
+        cout << "Invalid input please try again"<<endl<<endl;
+        goto start;
+    }
+
+    cout << "\n\n\nDo you want to try again? [y/n]: ";
+    cin >> choice2;
+
+    if(choice2 == 'y' || choice2 == 'Y'){
+        goto start;
+    }
+    else if (choice2 == 'n' || choice2 == 'N'){
+        return 0;
+    }
+    else {
+        cout << "Invalid input";
+        return 0;
+    }
+    
+
+    
+}
+
+int add(int a, int b, int c, int d){
+
     d = a + b + c;
-    cout << d;
-    return 0;
+
+    return d;
+}
+
+int sub(int a, int b, int c, int d){
+
+    d = a - b - c;
+
+    return d;
+}
+int mul(int a, int b, int c, int d){
+
+    d = a * b * c;
+
+    return d;
+}
+
+float div(int a, int b, int c, int d){
+
+
+    d = a / b / c;
+
+    return d;
+}
+
+int raise(int a, int b, int d){
+
+
+    d = pow(a,b);
+
+    return d;
+}
+int sqt(int a, int d){
+
+
+    d = sqrt(a);
+
+    return d;
 }

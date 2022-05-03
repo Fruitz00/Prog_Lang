@@ -84,6 +84,10 @@ int main ()
 						s = "";
 					}		
 			}
+			else if (s == "if" || s == "else"|| s == "else if" || s == "switch"  ){
+				cout << s << "is a conditional statement";
+				s = "";
+			}
 			else 
 			{
 				for (int j = 0; j < s.size(); j++) {
