@@ -30,11 +30,8 @@ string symbols[] = {"(", "{", "[", ")", "}", "]", "<", ">",
 string ignore[] = {"\n", "", " "};
 
 string conditions[] = {"if", "else", "else if", "switch"};
-					
 
-
-bool isKeyword(string a)
-{
+bool isKeyword(string a){
 	for (int i = 0; i < 84; i++) {
 		if (keywords[i] == a) {
 			return true;
@@ -43,8 +40,7 @@ bool isKeyword(string a)
 	return false;
 }
 
-bool isOperator(string a)
-{
+bool isOperator(string a){
 	for (int i = 0; i < 19; i++) {
 		if (operators[i] == a) {
 			return true;
@@ -53,8 +49,7 @@ bool isOperator(string a)
 	return false;
 }
 
-bool isSymbol(string a)
-{
+bool isSymbol(string a){
 	for (int i = 0; i < 14; i++) {
 		if (symbols[i] == a) {
 			return true;
@@ -63,8 +58,7 @@ bool isSymbol(string a)
 	return false;
 }
 
-bool isIgnore(string a)
-{
+bool isIgnore(string a){
 	for (int i = 0; i < 3; i++) {
 		if (ignore[i] == a) {
 			return true;
@@ -73,8 +67,7 @@ bool isIgnore(string a)
 	return false;
 }
 
-bool isCondition(string a)
-{
+bool isCondition(string a){
 	for (int i = 0; i < 4; i++) {
 		if (conditions[i] == a) {
 			return true;
@@ -83,87 +76,72 @@ bool isCondition(string a)
 	return false;
 }
 
-int main ()
-{
+int main (){
+	
 	ifstream file("prog.txt");
-	string x;
-	string code="";
+	string x, code="", s="", character="", symbol="", temp="";	
+	
 	while (getline(file, x)) 
-	{
 		code+=x;
-	}
-	string s="";
-	string character="";
-	string symbol="";
-	string temp="";	
-	for (int i = 0; i < code.size(); i++) 
-	{
+
+	for (int i = 0; i < code.size(); i++) {
 		
-		if (code[i] != ' ') 
-		{
+		if (code[i] != ' ') {
 			s += code[i];
-		}
-		else 
-		{
-			if (isOperator(s)) 
-			{
+		}else {
+			if (isOperator(s)) {
 				cout << s <<" is an operator 1"<<endl;
 				s = "";
-			}
-			else if (isKeyword(s)) 
-			{	
-					cout << s <<" is a keyword"<<endl;
-					s = "";	
-			}
-			else if (isSymbol(s)) {
-				cout << s <<" is a symbol"<<endl;
+			}else if (isKeyword(s)) {
+				cout << s <<" is a keyword 1"<<endl;
+				s = "";	
+			}else if (isSymbol(s)) {		
+				cout << s <<" is a symbol 1"<<endl;
+				s = "";	
+			}else if (isIgnore(s)) {
 				s = "";
-			}
-			else if (isIgnore(s)) {
-				s = "";
-			}
-			else if (isdigit (s[0])) 
-			{
+			}else if (isdigit (s[0])) {
 				int x = 0;
-					if (!isdigit (s[x++])) 
-					{
-						continue;
-					}
-					else 
-					{
-						cout << s <<" is a constant"<<endl;
-						s = "";
-					}		
+				
+				if (!isdigit (s[x++])) {
+					continue;
+				}else {
+					cout << s <<" is a constant 1"<<endl;
+					s = "";
+				}		
 			}
 			else if (isCondition(s)){
-				cout << s << "is a conditional statement" << endl;
+				cout << s << "is a conditional statement 1" << endl;
 				s = "";
-			}
-			else 
-			{
+			}else {
 				for (int j = 0; j < s.size(); j++) {
+					
 					if (isKeyword (character)) {	
-						cout << character <<" is a keyword"<<endl;
+						cout << character <<" is a keyword 2"<<endl;
 						symbol = "";
 						character = "";	
 						character += s[j];
 					}
+					
 					character += s[j];
 					symbol += s[j];
 					temp += s[j+1]; 
+					
 					//cout << " [ " << character << " ] " << endl;
-					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137))
-			        {
-					   		if(isSymbol(symbol) && isSymbol(temp)){
-					   			cout << "TESTTTTT1";
-								continue;
-							}
-							if(isOperator(symbol) && isOperator(temp)){
-								cout << "TESTTTTT2";
-								continue;
-							}
-							symbol = "";
-							temp = "";		
+					if ((s[j]>=48 && s[j]<=57)||(s[j]>=65 && s[j]<=90)||(s[j]>=97 && s[j]<=122 || s[j] == 137)){
+						
+				   		if(isSymbol(symbol) && isSymbol(temp)){
+				   			cout << "TESTTTTT1";
+							continue;
+						}
+						
+						if(isOperator(symbol) && isOperator(temp)){
+							cout << "TESTTTTT2";
+							continue;
+						}
+						
+						symbol = "";
+						temp = "";		
 			        }
 					else if (isIgnore(symbol)) 
 					{
@@ -181,8 +159,8 @@ int main ()
 								if(character != symbol)
 								{
 									character[character.length()-1] = 0; character.erase(character.end()-1);
-									cout << character <<" is a constant"<<endl;
-									cout << symbol <<" is a symbol"<<endl;
+									cout << character <<" is a constant 2"<<endl;
+									cout << symbol <<" is a symbol 2"<<endl;
 									character = "";
 								}
 								else
@@ -196,10 +174,10 @@ int main ()
 						if(character != symbol)
 						{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
-							cout << character <<" is an identifier"<<endl;
+							cout << character <<" is an identifier 1"<<endl;
 							character = "";
 						}
-						cout << symbol <<" is a symbol"<<endl;
+						cout << symbol <<" is a symbol 2"<<endl;
 						character = "";
 						symbol= "";
 					}
@@ -208,7 +186,7 @@ int main ()
 						if(character != symbol)
 						{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
-							cout << character <<" is an identifier"<<endl;
+							cout << character <<" is an identifier 2"<<endl;
 							character = "";
 						}
 						cout << symbol <<" is a operator 2"<<endl;
@@ -217,13 +195,13 @@ int main ()
 					}
 					else
 					{
-						cout << character <<" is an identifier"<<endl;
+						cout << character <<" is an identifier 3"<<endl;
 						character = "";
 						symbol= "";
 					}
 				}
 				if(character != ""){
-					cout << character <<" is an identifier"<<endl;
+					cout << character <<" is an identifier 4"<<endl;
 				}
 				symbol = "";
 				character = "";
