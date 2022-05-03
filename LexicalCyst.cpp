@@ -247,7 +247,6 @@ int main (){
 			}		
 		}	
 	}
-
 	summaryTable();
 
 }

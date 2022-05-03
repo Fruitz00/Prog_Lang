@@ -63,7 +63,7 @@ int main () {
 
     if(choice2 == 'y'||choice2 == 'Y'){
         goto start;
-    }x
+    }
     else if (choice2 == 'n' || choice2 == 'N'){
         return 0;
     }
@@ -117,4 +117,4 @@ int sqt(int a, int d){
     d = sqrt(a);
 
     return d;
-}zxczczacascascascacsascascas
+}
