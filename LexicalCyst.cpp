@@ -96,7 +96,9 @@ bool isConstant(string a){
 
 void summaryTable(){
 	map<string, int>:: iterator itr;
-	cout<<"\t\t\tSUMMARY TABLE\n\n";
+	cout<<"-------------------------------------------------------------------------\n";
+	cout<<"\t\t\t    SUMMARY TABLE\n";
+	cout<<"-------------------------------------------------------------------------\n";
 	cout<<setw(20)<<"Token"<<setw(10)<<"\t\tType\t\t\tOccurance"<<endl;
 	for(itr = lexMap.begin(); itr != lexMap.end(); ++itr){
 		if(isKeyword(itr->first)){
