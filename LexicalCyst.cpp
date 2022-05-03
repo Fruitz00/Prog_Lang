@@ -4,6 +4,8 @@
 #include<ctype.h>
 #include<fstream>
 #include<string>
+#include<map>
+#include<iomanip>
 
 using namespace std;
 
@@ -31,6 +33,18 @@ string symbols[] = {"(", "{", "[", ")", "}", "]", "<", ">",
 string ignore[] = {"\n", "", " "};
 
 string conditions[] = {"if", "else", "else if", "switch"};
+
+map<string, int> lexMap;
+
+int characterCounter(string str){
+	map<string, int>:: iterator itr = lexMap.find(str);
+	
+	if( lexMap.find(str) == lexMap.end()){
+		lexMap.insert(pair<string,int>(str,1));	
+	}else{
+		lexMap.at(str) += 1;
+	}		
+}
 
 bool isKeyword(string a){
 	for (int i = 0; i < 84; i++) {
@@ -80,6 +94,31 @@ bool isConstant(string a){
     return true;
 }
 
+void summaryTable(){
+	map<string, int>:: iterator itr;
+	cout<<"\t\t\tSUMMARY TABLE\n\n";
+	cout<<setw(20)<<"Token"<<setw(10)<<"\t\tType\t\t\tOccurance"<<endl;
+	for(itr = lexMap.begin(); itr != lexMap.end(); ++itr){
+		if(isKeyword(itr->first)){
+			cout<<setw(20)<<itr->first<<setw(10)<<"\t\tkeyword\t\t\t"<<itr->second<<endl;
+		}else if(isOperator(itr->first)){
+			cout<<setw(20)<<itr->first<<setw(10)<<"\t\toperator\t\t"<<itr->second<<endl;
+		}else if(isSymbol(itr->first)){
+			cout<<setw(20)<<itr->first<<setw(10)<<"\t\tsymbol\t\t\t"<<itr->second<<endl;
+		}else if(isIgnore(itr->first)){
+			
+		}else if(isCondition(itr->first)){
+			cout<<setw(20)<<itr->first<<setw(10)<<"\t\tcondition\t\t\t"<<itr->second<<endl;
+		}else if(isConstant(itr->first)){
+			cout<<setw(20)<<itr->first<<setw(10)<<"\t\tconstant\t\t"<<itr->second<<endl;
+		}else{
+			
+		}				
+	}
+	
+	
+}
+
 int main (){
 	
 	ifstream file("prog.txt");
@@ -97,20 +136,25 @@ int main (){
 			s += code[i];
 		}else {
 			if (isOperator(s)) {
+				characterCounter(s);
 				cout << s <<" is an operator"<<endl;
 				s = "";
 			}else if (isKeyword(s)) {
+				characterCounter(s);
 				cout << s <<" is a keyword"<<endl;
 				s = "";	
-			}else if (isSymbol(s)) {		
+			}else if (isSymbol(s)) {
+				characterCounter(s);		
 				cout << s <<" is a symbol"<<endl;
 				s = "";	
 			}else if (isIgnore(s)) {
 				s = "";
 			}else if (isConstant(s)) {
+				characterCounter(s);
 				cout << s <<" is a constant"<<endl;
 				s = "";	
 			}else if (isCondition(s)) {
+				characterCounter(s);
 				cout << s << "is a conditional statement" << endl;
 				s = "";
 			}else {
@@ -120,7 +164,8 @@ int main (){
 					symbol += s[j];
 					next += s[j+1];
 					
-					if (isKeyword(character)) {	
+					if (isKeyword(character)) {
+						characterCounter(character);
 						cout << character <<" is a keyword"<<endl;
 						symbol = "";
 						character = "";	
@@ -138,6 +183,7 @@ int main (){
 						}else { 
 							if(character != symbol){
 								character[character.length()-1] = 0; character.erase(character.end()-1);
+								characterCounter(character);
 								cout << character <<" is a constant"<<endl;
 								cout << symbol <<" is a symbol"<<endl;
 								character = "";
@@ -150,6 +196,7 @@ int main (){
 					}else if(isSymbol(symbol)){
 						if(character != symbol && !isSymbol(character))	{
 							character[character.length()-1] = 0; character.erase(character.end()-1);
+							characterCounter(character);
 							cout << character <<" is an identifier"<<endl;
 							character = "";
 						}
@@ -157,6 +204,7 @@ int main (){
 							character = "";
 				   			continue;	
 						}
+						characterCounter(symbol);
 						cout << symbol <<" is a symbol"<<endl;
 						character = "";
 						symbol= "";
@@ -165,6 +213,7 @@ int main (){
 					}else if(isOperator(symbol)){
 						if(character != symbol  && !isOperator(character)){
 							character[character.length()-1] = 0; character.erase(character.end()-1);
+							characterCounter(character);
 							cout << character <<" is an identifier"<<endl;
 							character = "";
 						}
@@ -172,9 +221,11 @@ int main (){
 							character = "";
 							continue;
 						}
+						characterCounter(symbol);
 						cout << symbol <<" is a operator"<<endl;
 						character = "";
 					}else{
+						characterCounter(character);
 						cout << character <<" is an identifier"<<endl;
 						character = "";
 						symbol= "";
@@ -184,6 +235,7 @@ int main (){
 				}
 				
 				if(character != ""){
+					characterCounter(character);
 					cout << character <<" is an identifier"<<endl;
 				}
 				
@@ -193,4 +245,7 @@ int main (){
 			}		
 		}	
 	}
+
+	summaryTable();
+
 }

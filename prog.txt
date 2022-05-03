@@ -16,6 +16,10 @@ int main () {
     
     int choice;
     char choice2;
+    
+    for(int i = 0; i < 5; i++){
+        cout<<"sir pahinge grades";
+    }
 
     start:
 
