@@ -88,8 +88,12 @@ bool isCondition(string a){
 
 bool isConstant(string a){
     for (int i = 0; i < a.length(); i++){
-        if (isdigit(a[i]) == false)
+        if((a[i] == '.' && isdigit(a[i+1]) == true)){
+    		continue;
+		}
+		if (isdigit(a[i]) == false ){
             return false;
+    	}      
     }
     return true;
 }
@@ -125,6 +129,7 @@ int main (){
 	
 	ifstream file("prog.txt");
 	string x, code="", s="", character="", symbol="", temp="", next="";	
+	bool literal = false;
 	
 	while (getline(file, x)) {
 		code += " ";
@@ -133,6 +138,9 @@ int main (){
 	}
 
 	for (int i = 0; i < code.size(); i++) {
+		if(literal == true){
+			s += code[i];
+		}
 		
 		if (code[i] != ' ') {
 			s += code[i];
@@ -165,7 +173,9 @@ int main (){
 					character += s[j];
 					symbol += s[j];
 					next += s[j+1];
-					
+					if(character == "\""){
+						cout << character << " is a string";
+					}
 					if (isKeyword(character)) {
 						characterCounter(character);
 						cout << character <<" is a keyword"<<endl;
@@ -178,7 +188,7 @@ int main (){
 						next = "";		
 			        }else if (isIgnore(character)) {
 						character = "";
-					}else if (isdigit (character[0])) {
+					}else if (isdigit (character[0]) || isConstant(character)) {
 						int x = 0;
 						if (!isdigit (character[x++])) {
 							continue;
@@ -186,6 +196,7 @@ int main (){
 							if(character != symbol){
 								character[character.length()-1] = 0; character.erase(character.end()-1);
 								characterCounter(character);
+								characterCounter(symbol);
 								cout << character <<" is a constant"<<endl;
 								cout << symbol <<" is a symbol"<<endl;
 								character = "";

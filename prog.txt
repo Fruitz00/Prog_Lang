@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int a = 9, b = 5 , c = 6, d = 0;
+int a = 9, b =5.1, c = 6, d = 0;
 
 int add(int a, int b, int c, int d);
 int sub(int a, int b, int c, int d);
