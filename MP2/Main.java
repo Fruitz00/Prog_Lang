@@ -1,5 +1,7 @@
 package MP2;
 
+import MP2.Lexer.*;
+
 public class Main{
     //Constants
     static final int[] DIGITS = {0,1,2,3,4,5,6,7,8,9};
@@ -12,6 +14,6 @@ public class Main{
     static final String TT_RPAREN = "RPAREN";
 
     public static void main(String[]args){
-        System.out.println();
+        System.out.println("HI");
     }
 }

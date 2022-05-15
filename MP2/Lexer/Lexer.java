@@ -1,4 +1,4 @@
-package MP2;
+package MP2.Lexer;
 
 public class Lexer {
     
