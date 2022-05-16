@@ -14,6 +14,6 @@ public class Main{
     static final String TT_RPAREN = "RPAREN";
 
     public static void main(String[]args){
-        Run run = new Run("1", "2");
+        Lexer lexer = new Lexer("<stdin>", "text");
     }
 }

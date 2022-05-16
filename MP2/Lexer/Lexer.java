@@ -12,13 +12,13 @@ public class Lexer {
     char charArr[];
     char tokens[];
     
-    Lexer(String fn, String text){
+    public Lexer(String fn, String text){
         //Convert String text to char array.
         charArr = text.toCharArray();
         this.fn = fn;
         this.text = text;
         this.pos = new Position(-1, 0, -1, fn, text); //Default from -1 
-        this.current_char = null;
+        this.current_char = charArr[0]; //Pass value here. NullpointerException. Can be first elem of charArr
         this.advance();
     }    
 
