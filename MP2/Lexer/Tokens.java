@@ -10,9 +10,13 @@ public class Tokens {
     static final String TT_LPAREN = "LPAREN";
     static final String TT_RPAREN = "RPAREN";
 
-    Tokens(char type_, value = null){
 
+    Tokens(char type_, int value = null){
+        this.type = type_;
+        this.value = value;
     }
+
+
 
      
 }
