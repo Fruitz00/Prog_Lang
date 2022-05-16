@@ -8,6 +8,7 @@ public class Lexer {
     private String text;
     private Position pos;
     private Character current_char;
+    private Position pos_start;
     
     Lexer(String fn, String text){
         this.fn = fn;
@@ -45,7 +46,10 @@ public class Lexer {
             }else if(this.current_char == ')'){
                 
             }else{
-                int pos_start = pos.copy();     
+                pos_start = pos.copy();
+                char char_ = this.current_char;
+                this.advance();
+                return token, IllegalCharError(pos_start, this.pos, ""+ char_ +"")
             }
         }
     }
