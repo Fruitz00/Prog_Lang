@@ -20,5 +20,4 @@ public class Tokens{
         }
         return String.format("%s", String.valueOf(this.token));
     }
-
 }

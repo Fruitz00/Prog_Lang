@@ -12,6 +12,6 @@ public class Main{
     static final String TT_RPAREN = "RPAREN";
 
     public static void main(String[]args){
-        System.out.println();
+        System.out.println("HI");
     }
 }
