@@ -3,6 +3,7 @@ package MP2.Lexer;
 import java.util.*;
 
 public class Lexer {
+    static final String DIGITS = "0123456789";
     private String fn;
     private String text;
     private Position pos;
@@ -29,8 +30,22 @@ public class Lexer {
                 this.advance();
             }else if(this.current_char == '\t'){
 
-            }else if(this.current_char == '\t'){
+            }else if(DIGITS.contains(Character.toString(this.current_char))){
                 
+            }else if(this.current_char == '+'){
+
+            }else if(this.current_char == '-'){
+                
+            }else if(this.current_char == '*'){
+                
+            }else if(this.current_char == '/'){
+                
+            }else if(this.current_char == '('){
+                
+            }else if(this.current_char == ')'){
+                
+            }else{
+                int pos_start = pos.copy();     
             }
         }
     }
