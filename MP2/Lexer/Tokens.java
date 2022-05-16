@@ -1,7 +1,6 @@
 import java.text.Normalizer.Form;
 
 public class Tokens{
-
     private String token;
     private String value;
 
@@ -11,7 +10,11 @@ public class Tokens{
         this.token = token;
         this. value = value;
 
+    Tokens(char type_, int value = null){
+        this.type = type_;
+        this.value = value;
     }
+
 
     public toStr(){
 

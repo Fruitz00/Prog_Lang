@@ -1,10 +1,10 @@
 package MP2.Lexer;
 public class Position {
-    private int idx;
-    private int ln;
-    private int col;
-    private String fn;
-    private String ftxt;
+    public int idx;
+    public int ln;
+    public int col;
+    public String fn;
+    public String ftxt;
 
     Position(int idx, int ln, int col, String fn, String ftxt){
         this.idx = idx;
@@ -14,11 +14,20 @@ public class Position {
         this.ftxt = ftxt;
     }
 
-    public void advance(Character curr_char){
+    public Position advance(Character curr_char){
+        this.idx += 1;
+        this.col += 1;
 
-    }   
+        if (curr_char == '\n'){
+            this.ln += 1;
+            this.col = 0;
+        }
+
+        return this;
+    }
     
     public Position copy(){
-        return new Position(this.idx,this.ln,this.col,this.fn,this.ftxt);
+        //return new Position(this.idx,this.ln,this.col,this.fn,this.ftxt);
+        return this;
     }
 }
