@@ -14,7 +14,7 @@ public class Position {
         this.ftxt = ftxt;
     }
 
-    public Position advance(Character curr_char){
+    public Position advance(char curr_char){
         this.idx += 1;
         this.col += 1;
 

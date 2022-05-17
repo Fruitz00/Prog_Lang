@@ -1,5 +1,6 @@
 package MP2;
 
+import java.util.Scanner;
 import MP2.Lexer.*;
 
 public class Main{
@@ -14,6 +15,11 @@ public class Main{
     static final String TT_RPAREN = "RPAREN";
 
     public static void main(String[]args){
-        Lexer lexer = new Lexer("<stdin>", "text");
+        
+        Scanner in = new Scanner(System.in);
+        System.out.print("basic > ");
+        String input = in.next();
+        Run run = new Run("<stdin>",input);
+        
     }
 }
