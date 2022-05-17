@@ -13,6 +13,7 @@ public class Lexer {
     char charArr[];
     char tokens[];
     
+    
     public Lexer(String fn, String text){
         //Convert String text to char array.
         charArr = text.toCharArray();
