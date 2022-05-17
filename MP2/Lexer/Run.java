@@ -12,7 +12,7 @@ public class Run {
     public Run(String fn, String text){
         lexer = new Lexer(fn, text);
         this.token = lexer.make_tokens();
-        this.error = lexer.make_tokens();  
+        //this.error = lexer.make_tokens();
     }
 
     public List<String> ret(){

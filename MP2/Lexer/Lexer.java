@@ -24,16 +24,18 @@ public class Lexer {
         this.advance();
     }    
 
-    public void advance(){
+    public boolean advance(){
         this.pos.advance(this.current_char);
         if (this.pos.idx < charArr.length){
             this.current_char = this.charArr[this.pos.idx];
-        } else {
-
+            return true;
+        } else if (this.pos.idx == charArr.length){ //Has completed 1 run?
+            return false;
         }
 
         //this.current_char = this.charArr[this.pos.idx];
         // this.current_char = this.text[this.pos.idx] if this.pos.idx < len(this.text) else null;
+        return false;
     }
 
     public List<String> make_tokens(){
@@ -44,7 +46,7 @@ public class Lexer {
                 if(this.current_char == '\t'){
                     this.advance();
                 }else if(DIGITS.contains(Character.toString(this.current_char))){
-                    token.add(make_numbers());
+                    token.add(make_numbers() + ":"+this.current_char);
                 }else if(this.current_char == '+'){
                     token.add(Tokens.TT_PLUS);
                 }else if(this.current_char == '-'){
@@ -60,14 +62,25 @@ public class Lexer {
                 }else{
                     pos_start = pos.copy();
                     char char_ = this.current_char;
-                    this.advance();
+                    //this.advance();
                     throw new IllegalCharError(pos_start, this.pos, ""+ char_ +"");
                 }
-                System.out.println(token);
+                boolean a = this.advance();
+                if (a) {
+                    //System.out.println(token);
+                    continue;
+                } else if (a == false){
+                    System.out.println(token);
+                    break;
+                }
+
             }
         } catch (IllegalCharError e) {
             System.out.println("error u entered illegal char noob.");
             return token;
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Array Index Out of Bounds.");
+            System.exit(0);
         }
         return token;
     }
