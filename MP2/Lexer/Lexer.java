@@ -76,7 +76,7 @@ public class Lexer {
 
             }
         } catch (IllegalCharError e) {
-            System.out.println("error u entered illegal char noob.");
+            System.out.println("Error! You've entered an illegal Character .");
             return token;
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Array Index Out of Bounds.");
