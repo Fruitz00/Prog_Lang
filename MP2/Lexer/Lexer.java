@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Lexer {
     static final String DIGITS = "0123456789";
+    static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyz";
     private String fn;
     private String text;
     public Position pos;
@@ -23,7 +24,12 @@ public class Lexer {
         this.current_char = ' ';
         this.advance();
     }    
-
+    /***
+     * 
+     * @return
+     * Returns true when the current position index is less than the length of the char array and
+     * Returns false when current position index is equal to the length of the char array
+     */
     public boolean advance(){
         this.pos.advance(this.current_char);
         if (this.pos.idx < charArr.length){
@@ -42,11 +48,13 @@ public class Lexer {
         List<String> token = new ArrayList<String>();
         token.clear();
         try {
-            while (this.current_char != ' '){
+            while (this.pos.idx != charArr.length){
                 if(this.current_char == '\t'){
                     this.advance();
                 }else if(DIGITS.contains(Character.toString(this.current_char))){
                     token.add(make_numbers() + ":"+this.current_char);
+                }else if(CHARACTERS.contains(Character.toString(this.current_char))){
+                    token.add(make_characters() + ":"+this.current_char);
                 }else if(this.current_char == '+'){
                     token.add(Tokens.TT_PLUS);
                 }else if(this.current_char == '-'){
@@ -59,6 +67,8 @@ public class Lexer {
                     token.add(Tokens.TT_LPAREN);
                 }else if(this.current_char == ')'){
                     token.add(Tokens.TT_RPAREN);
+                }else if (this.current_char == '\t'){
+                    this.advance();
                 }else{
                     pos_start = pos.copy();
                     char char_ = this.current_char;
@@ -76,7 +86,7 @@ public class Lexer {
 
             }
         } catch (IllegalCharError e) {
-            System.out.println("Error! You've entered an illegal Character .");
+            System.out.println("Error! You've entered an illegal Character.");
             return token;
         } catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Array Index Out of Bounds.");
@@ -84,7 +94,11 @@ public class Lexer {
         }
         return token;
     }
-
+    /***
+     * 
+     * @return
+     * Returns the numerical datatype of the current character in the char array
+     */
     public String make_numbers(){
         char num_str = ' ';
         int dot_count = 0;
@@ -105,6 +119,31 @@ public class Lexer {
             return tok.toStr(Tokens.TT_INT, num_str);
         }else{
             return tok.toStr(Tokens.TT_FLOAT, num_str);
+        }
+    }
+    /***
+     * 
+     * @return
+     * Returns the data type of the current character in the char array
+     */
+    public String make_characters(){
+        char char_str = ' ';
+        int dot_count = 0;
+        while(this.current_char != ' ' && CHARACTERS.contains(Character.toString(this.current_char + '.'))){
+            if (this.current_char == '.'){
+                if(dot_count == 1) break;
+                dot_count += 1;
+                char_str += '.';
+            } else {
+                char_str += this.current_char;
+                this.advance();
+            }
+        }
+
+        if(dot_count == 0){
+            return tok.toStr(Tokens.TT_CHAR, char_str);
+        }else{
+            return "what";
         }
     }
 }

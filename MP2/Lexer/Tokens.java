@@ -3,6 +3,8 @@ import java.text.Normalizer.Form;
 
 public class Tokens {
     static final int[] DIGITS = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+//    static final char[] CHARACTERS = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    static final String TT_CHAR = "IDENTIFIER";
     static final String TT_INT = "INT";
     static final String TT_FLOAT = "FLOAT";
     static final String TT_PLUS = "PLUS";
