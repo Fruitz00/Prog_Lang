@@ -49,8 +49,8 @@ public class Lexer {
         token.clear();
         try {
             while (this.pos.idx != charArr.length){
-                if(this.current_char == '\t'){
-                    this.advance();
+                if(this.current_char == '\t' || this.current_char == ' '){
+                    //DO NOT CHANGE THIS OR ELSE THE PROGRAM WILL BREAK WHEN YOU ENTER SPACES
                 }else if(DIGITS.contains(Character.toString(this.current_char))){
                     token.add(make_numbers() + ":"+this.current_char);
                 }else if(CHARACTERS.contains(Character.toString(this.current_char))){
@@ -67,8 +67,6 @@ public class Lexer {
                     token.add(Tokens.TT_LPAREN);
                 }else if(this.current_char == ')'){
                     token.add(Tokens.TT_RPAREN);
-                }else if (this.current_char == '\t'){
-                    this.advance();
                 }else{
                     pos_start = pos.copy();
                     char char_ = this.current_char;
@@ -103,7 +101,7 @@ public class Lexer {
         char num_str = ' ';
         int dot_count = 0;
 
-        while(this.current_char != ' ' && DIGITS.contains(Character.toString(this.current_char + '.'))){
+        while(this.current_char != '\t' && DIGITS.contains(Character.toString(this.current_char + '.'))){
             if(this.current_char == '.'){
                 if(dot_count == 1) break;
                 dot_count += 1;
@@ -115,6 +113,8 @@ public class Lexer {
             }
         }
 
+
+
         if(dot_count == 0){
             return tok.toStr(Tokens.TT_INT, num_str);
         }else{
@@ -122,7 +122,7 @@ public class Lexer {
         }
     }
     /***
-     * 
+     *
      * @return
      * Returns the data type of the current character in the char array
      */

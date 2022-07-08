@@ -18,7 +18,7 @@ public class Main{
         
         Scanner in = new Scanner(System.in);
         System.out.print("basic > ");
-        String input = in.next();
+        String input = in.nextLine();
         Run run = new Run("<stdin>",input);
         
     }
