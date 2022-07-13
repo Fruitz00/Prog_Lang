@@ -1,0 +1,1 @@
+Parsing the statement: sumTotal = (sum + 47    ) / total
